@@ -1,17 +1,25 @@
 import { Box, Tabs, Tab } from '@mui/material';
 import { useState, useEffect } from 'react';
 import CurrentCatagory from './current-catagory';
-import { addCatagory, getCatagory } from '../../store/catagories';
+import {
+  addCatagory,
+  getCatagory,
+  getActiveCatagory,
+} from '../../store/catagories';
 import { connect } from 'react-redux';
 import { When } from 'react-if';
 const Catagories = (props) => {
   const [value, setValue] = useState(0);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const { catagory, addCatagory, getCatagory } = props;
+  const { catagory, addCatagory, getCatagory, getActiveCatagory } = props;
   useEffect(() => {
     getCatagory();
   }, [catagory]);
+  useEffect(() => {
+    getActiveCatagory(value);
+  }, [value]);
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
@@ -61,12 +69,9 @@ const Catagories = (props) => {
           </button>
         </Box>
       </When>
-      {catagory.catagories.map((cat, i) => (
-        <When condition={value === i}>
-          <CurrentCatagory value={i} />
-          {console.log(cat)}
-        </When>
-      ))}
+      <When condition={value !== catagory.catagories.length}>
+        <CurrentCatagory />
+      </When>
     </div>
   );
 };
@@ -74,6 +79,6 @@ const Catagories = (props) => {
 const mapStateToProps = (state) => ({
   catagory: state.catagory,
 });
-const mapDispatchToProps = { addCatagory, getCatagory };
+const mapDispatchToProps = { addCatagory, getCatagory, getActiveCatagory };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Catagories);

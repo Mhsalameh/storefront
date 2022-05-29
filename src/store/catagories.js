@@ -3,28 +3,25 @@ let initialState = {
     {
       id: 0,
       name: 'Food',
-      description: 'food description',
+      description: 'only apples',
       subCatagories: [],
     },
     {
       id: 1,
       name: 'Clothing',
-      description: 'clothing description',
+      description: 'shop for Eid',
       subCatagories: [],
     },
     {
       id: 2,
       name: 'Electronics',
-      description: 'electronics description',
+      description: 'old tvs',
       subCatagories: [],
     },
   ],
 };
 
-export default (
-  state = JSON.parse(localStorage.getItem('catagories')) || initialState,
-  action
-) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'SELECT_CATAGORY':
       let catagory = state.catagories.find(
@@ -57,6 +54,13 @@ export default (
         }
       });
       return { ...state };
+
+    case 'GET_ACTIVE_CATAGORY':
+      let activeCatagory = state.catagories.find(
+        (catagory) => catagory.id === action.payload
+      );
+      return { ...state, activeCatagory };
+
     default:
       return state;
   }
@@ -93,6 +97,13 @@ export const deleteCatagory = (value) => {
 export const addSubCatagory = (value) => {
   return {
     type: 'ADD_SUB_CATAGORY',
+    payload: value,
+  };
+};
+
+export const getActiveCatagory = (value) => {
+  return {
+    type: 'GET_ACTIVE_CATAGORY',
     payload: value,
   };
 };

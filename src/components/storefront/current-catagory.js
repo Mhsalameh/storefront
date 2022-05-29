@@ -1,69 +1,43 @@
 import { connect } from 'react-redux';
-import { v4 as uuid } from 'uuid';
-import {
-  deleteCatagory,
-  addSubCatagory,
-  getCatagory,
-} from '../../store/catagories';
-import { useEffect, useState } from 'react';
+import { getCatagory, getActiveCatagory } from '../../store/catagories';
+import { useEffect } from 'react';
+import { Typography, Box } from '@mui/material';
+import ProductModal from './newProductModal';
 function CurrentCatagory(props) {
-  const [subCatagory, setSubCatagory] = useState('');
-  const { catagory, deleteCatagory, addSubCatagory, getCatagory, value } =
-    props;
-  const cat = catagory.catagories[value];
+  const { catagory, getActiveCatagory, getCatagory, value } = props;
+
   useEffect(() => {
     getCatagory();
-  }, [subCatagory]);
+  }, [catagory]);
+  useEffect(() => {
+    getActiveCatagory(value);
+  }, [value]);
   return (
     <>
-      <h2>{cat.name}</h2>
-      <h3>{cat.description}</h3>
-      <div>
-        <input
-          type='text'
-          placeholder='sub catagory name'
-          onChange={(e) => {
-            setSubCatagory({
-              catagoryId: value,
-              id: uuid(),
-              name: e.target.value,
-              image: 'https://via.placeholder.com/150',
-            });
-          }}
-        />
-        <button
-          onClick={() => {
-            addSubCatagory({
-              ...subCatagory,
-              description: 'description',
-            });
-          }}
-        >
-          Add Sub Catagory
-        </button>
-      </div>
-      <div>
-        {cat.subCatagories.map((subCat, i) => (
-          <div key={i}>
-            <h2>{subCat.name}</h2>
-            <h3>{subCat.description}</h3>
-            <img src={subCat.image} />
-          </div>
-        ))}
-      </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          deleteCatagory(cat.id);
-        }}
+      {/* <ProductModal activeCatagory={catagory.activeCatagory?.id} /> */}
+
+      <Box
+        display='flex'
+        height='20vh'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
       >
-        Delete Catagory
-      </button>
+        <Typography align='center' variant='h4'>
+          {catagory?.activeCatagory?.name}
+        </Typography>
+        <Typography align='center' variant='subtitle1'>
+          {catagory?.activeCatagory?.description}
+        </Typography>
+      </Box>
     </>
   );
 }
 const mapStateToProps = (state) => ({
   catagory: state.catagory,
 });
-const mapDispatchToProps = { deleteCatagory, addSubCatagory, getCatagory };
+const mapDispatchToProps = {
+  getCatagory,
+  getActiveCatagory,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentCatagory);

@@ -1,7 +1,9 @@
+import { Typography } from '@mui/material';
+
 export default function Footer() {
   return (
-    <footer>
-      <h1>Footer</h1>
-    </footer>
+    <Typography id='footer' align='justify' variant='subtitle'>
+      &copy; 2020 Not A Real Store : Mohammad Salameh
+    </Typography>
   );
 }
