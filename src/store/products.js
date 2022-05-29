@@ -43,19 +43,19 @@ const initialState = {
     },
   ],
 };
-export default (state = initialState, action) => {
+export default function products(state = initialState, action) {
   switch (action.type) {
     case 'GET_PRODUCTS':
       // localStorage.setItem('products', JSON.stringify(state));
       return state;
     case 'ADD_PRODUCT':
       console.log(action.payload);
-      if (state.products[0])
-        // localStorage.setItem('products', JSON.stringify(state));
-        return {
-          ...state,
-          products: [...state.products, action.payload],
-        };
+      // if (state.products[0])
+      // localStorage.setItem('products', JSON.stringify(state));
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
     case 'DELETE_PRODUCT':
       return {
         ...state,
@@ -66,7 +66,7 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-};
+}
 export const addProduct = (product) => {
   return {
     type: 'ADD_PRODUCT',

@@ -21,7 +21,7 @@ let initialState = {
   ],
 };
 
-export default (state = initialState, action) => {
+export default function catagory(state = initialState, action) {
   switch (action.type) {
     case 'SELECT_CATAGORY':
       let catagory = state.catagories.find(
@@ -64,7 +64,7 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-};
+}
 
 export const selectCatagories = (value) => {
   return {
