@@ -15,7 +15,7 @@ function Products(props) {
 
   useEffect(() => {
     getProducts();
-  }, [products]);
+  }, [getProducts, products]);
 
   return (
     <div id='productCard'>
@@ -39,7 +39,12 @@ function Products(props) {
                 alt={product.name}
               />
               <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
+                <Typography
+                  align='center'
+                  gutterBottom
+                  variant='h5'
+                  component='div'
+                >
                   {product.name}
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
@@ -59,6 +64,8 @@ function Products(props) {
               </CardActions>
             </Card>
           );
+        } else {
+          return null;
         }
       })}
     </div>

@@ -15,10 +15,10 @@ const Catagories = (props) => {
   const { catagory, addCatagory, getCatagory, getActiveCatagory } = props;
   useEffect(() => {
     getCatagory();
-  }, [catagory]);
+  }, [catagory, getCatagory]);
   useEffect(() => {
     getActiveCatagory(value);
-  }, [value]);
+  }, [value, getActiveCatagory]);
 
   function handleChange(event, newValue) {
     setValue(newValue);

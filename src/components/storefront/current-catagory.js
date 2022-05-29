@@ -2,16 +2,16 @@ import { connect } from 'react-redux';
 import { getCatagory, getActiveCatagory } from '../../store/catagories';
 import { useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
-import ProductModal from './newProductModal';
+// import ProductModal from './newProductModal';
 function CurrentCatagory(props) {
   const { catagory, getActiveCatagory, getCatagory, value } = props;
 
   useEffect(() => {
     getCatagory();
-  }, [catagory]);
+  }, [catagory, getCatagory]);
   useEffect(() => {
     getActiveCatagory(value);
-  }, [value]);
+  }, [getActiveCatagory, value]);
   return (
     <>
       {/* <ProductModal activeCatagory={catagory.activeCatagory?.id} /> */}
