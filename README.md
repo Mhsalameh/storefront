@@ -10,3 +10,7 @@ A storefront is a place where people can buy things.
 ## [Pull Request](https://github.com/Mhsalameh/storefront/pull/3)
 
 ## [Live URL](https://not-a-real-store.netlify.app/)
+
+## UML
+
+![uml](./assets/not-a-store-uml-redux.png)
