@@ -25,12 +25,12 @@ function Products(props) {
             <Card
               key={i}
               sx={{
-                maxWidth: '50%',
-                minWidth: '30%',
+                maxWidth: '30%',
+                minWidth: '20%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                margin: '2rem',
+                marginBottom: '2rem',
               }}
             >
               <CardMedia
