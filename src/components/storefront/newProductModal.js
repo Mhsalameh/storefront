@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import { connect } from 'react-redux';
@@ -56,6 +56,13 @@ const ProductModal = (props) => {
             placeholder='description'
             onChange={(e) => {
               setDescription(e.target.value);
+            }}
+          />
+          <input
+            type='text'
+            placeholder='image url'
+            onChange={(e) => {
+              setImage(e.target.value);
             }}
           />
           <Button

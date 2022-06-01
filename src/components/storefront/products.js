@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { addProduct, getProducts } from '../../store/products';
+import {
+  addProduct,
+  getProducts,
+  decrementInventory,
+} from '../../store/products';
 import { getActiveCatagory } from '../../store/catagories';
 import { addToCart } from '../../store/cart';
 import Card from '@mui/material/Card';
@@ -9,9 +13,19 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Alert from '@mui/material/Alert';
+import { useState } from 'react';
+import Details from '../products/details';
 function Products(props) {
-  const { products, getProducts, activeCatagory, addToCart } = props;
+  const [alert, setAlert] = useState(false);
+  const {
+    products,
+    getProducts,
+    activeCatagory,
+    addToCart,
+    decrementInventory,
+  } = props;
 
   useEffect(() => {
     getProducts();
@@ -50,11 +64,48 @@ function Products(props) {
                 <Typography variant='body2' color='text.secondary'>
                   {product.description}
                 </Typography>
+                <Typography
+                  align='center'
+                  variant='body2'
+                  color='text.secondary'
+                >
+                  {product.inventory > 0
+                    ? 'In Stock: ' + product.inventory
+                    : 'Out of Stock'}
+                </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => addToCart(product)}>Add to cart</Button>
-                <Button size='small'>view details</Button>
+                <Button
+                  onClick={() => {
+                    if (product.inventory > 0) {
+                      addToCart(product);
+                      decrementInventory(product.id);
+                    } else {
+                      setAlert(true);
+                    }
+                  }}
+                >
+                  <AddShoppingCartIcon /> Add to cart
+                </Button>
+                <Details item={product} />
               </CardActions>
+              {alert && product.inventory < 1 && (
+                <Alert
+                  severity='error'
+                  onClose={() => setAlert(false)}
+                  action={
+                    <Button
+                      size='small'
+                      onClick={() => setAlert(false)}
+                      color='primary'
+                    >
+                      Close
+                    </Button>
+                  }
+                >
+                  Sorry, we are out of stock!
+                </Alert>
+              )}
             </Card>
           );
         } else {
@@ -75,6 +126,7 @@ const mapDispatchToProps = {
   getProducts,
   getActiveCatagory,
   addToCart,
+  decrementInventory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

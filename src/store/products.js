@@ -63,9 +63,21 @@ export default function products(state = initialState, action) {
           (product) => product.id !== action.payload
         ),
       };
+    case 'INCREMENT_INVENTORY':
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.id === action.payload) {
+            return { ...product, inventory: product.inventory + 1 };
+          } else {
+            return product;
+          }
+        }),
+      };
+
     case 'DECREMENT_INVENTORY':
       let newProducts = state.products.map((product) => {
-        if (product.id === action.payload) {
+        if (product.id === action.payload && product.inventory > 0) {
           return { ...product, inventory: product.inventory - 1 };
         } else {
           return product;
@@ -75,6 +87,23 @@ export default function products(state = initialState, action) {
         ...state,
         products: newProducts,
       };
+
+    case 'RETURN_INVENTORY':
+      let newProducts2 = state.products.map((product) => {
+        if (product.id === action.payload.id) {
+          return {
+            ...product,
+            inventory: product.inventory + action.payload.quantity,
+          };
+        } else {
+          return product;
+        }
+      });
+      return {
+        ...state,
+        products: newProducts2,
+      };
+
     default:
       return state;
   }
@@ -100,5 +129,18 @@ export const decrementInventory = (id) => {
   return {
     type: 'DECREMENT_INVENTORY',
     payload: id,
+  };
+};
+
+export const incrementInventory = (id) => {
+  return {
+    type: 'INCREMENT_INVENTORY',
+    payload: id,
+  };
+};
+export const returnInventory = (item) => {
+  return {
+    type: 'RETURN_INVENTORY',
+    payload: item,
   };
 };
