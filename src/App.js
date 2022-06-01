@@ -7,23 +7,31 @@ import Products from './components/storefront/products';
 import { getActiveCatagory } from './store/catagories';
 import { connect } from 'react-redux';
 import { When } from 'react-if';
+import { getCart } from './store/cart';
+import Checkout from './components/cart/checkout';
 function App(props) {
-  const { catagory, products } = props;
+  const { catagory, products, cart } = props;
+
   return (
     <div className='container'>
       <Header />
-      <Catagories />
-      <When condition={catagory.activeCatagory && products?.products[0]}>
-        <Products activeCatagory={catagory.activeCatagory} />
+      <When condition={!cart.isCartOpen}>
+        <Catagories />
+        <When condition={catagory.activeCatagory && products?.products[0]}>
+          <Products activeCatagory={catagory.activeCatagory} />
+        </When>
+      </When>
+      <When condition={cart.isCartOpen}>
+        <Checkout />
       </When>
       <Footer />
-      {/* <Button variant='contained'>Hello World</Button> */}
     </div>
   );
 }
 const mapStateToProps = (state) => ({
   catagory: state.catagory,
   products: state.products,
+  cart: state.cart,
 });
-const mapDispatchToProps = { getActiveCatagory };
+const mapDispatchToProps = { getActiveCatagory, getCart };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
