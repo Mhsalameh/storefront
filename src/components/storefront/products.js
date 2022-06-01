@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { addProduct, getProducts } from '../../store/products';
 import { getActiveCatagory } from '../../store/catagories';
-import { increment } from '../../store/cart';
+import { addToCart } from '../../store/cart';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 function Products(props) {
-  const { products, getProducts, activeCatagory, increment } = props;
+  const { products, getProducts, activeCatagory, addToCart } = props;
 
   useEffect(() => {
     getProducts();
@@ -52,14 +52,7 @@ function Products(props) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button
-                  size='small'
-                  onClick={(e) => {
-                    increment();
-                  }}
-                >
-                  add to cart
-                </Button>
+                <Button onClick={() => addToCart(product)}>Add to cart</Button>
                 <Button size='small'>view details</Button>
               </CardActions>
             </Card>
@@ -81,7 +74,7 @@ const mapDispatchToProps = {
   addProduct,
   getProducts,
   getActiveCatagory,
-  increment,
+  addToCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

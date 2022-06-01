@@ -8,7 +8,7 @@ const initialState = {
       description: 'This is a black suit',
       image:
         'https://cdn.pixabay.com/photo/2017/12/15/18/50/isolated-3021541_960_720.png',
-      price: 10,
+      price: 1500,
       inventory: 10,
     },
     {
@@ -18,7 +18,7 @@ const initialState = {
       description: 'This is a white T-shirt',
       image:
         'https://cdn.pixabay.com/photo/2016/03/16/21/43/t-shirt-1261820_960_720.png',
-      price: 10,
+      price: 1000,
       inventory: 10,
     },
     {
@@ -28,7 +28,7 @@ const initialState = {
       description: 'This is a tv',
       image:
         'https://cdn.pixabay.com/photo/2013/07/12/14/49/flatscreen-148843__340.png',
-      price: 10,
+      price: 3000,
       inventory: 10,
     },
     {
@@ -38,7 +38,7 @@ const initialState = {
       description: 'red and tasty',
       image:
         'https://cdn.europosters.eu/image/1300/art-photo/red-apple-i81609.jpg',
-      price: 10,
+      price: 100,
       inventory: 10,
     },
   ],
@@ -63,6 +63,18 @@ export default function products(state = initialState, action) {
           (product) => product.id !== action.payload
         ),
       };
+    case 'DECREMENT_INVENTORY':
+      let newProducts = state.products.map((product) => {
+        if (product.id === action.payload) {
+          return { ...product, inventory: product.inventory - 1 };
+        } else {
+          return product;
+        }
+      });
+      return {
+        ...state,
+        products: newProducts,
+      };
     default:
       return state;
   }
@@ -82,5 +94,11 @@ export const deleteProduct = (id) => {
 export const getProducts = () => {
   return {
     type: 'GET_PRODUCTS',
+  };
+};
+export const decrementInventory = (id) => {
+  return {
+    type: 'DECREMENT_INVENTORY',
+    payload: id,
   };
 };
