@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import {
-  addProduct,
-  getProducts,
-  decrementInventory,
-} from '../../store/products';
+import { addProduct, getProducts, updateProduct } from '../../store/actions';
 import { getActiveCatagory } from '../../store/catagories';
 import { addToCart } from '../../store/cart';
 import Card from '@mui/material/Card';
@@ -20,13 +16,8 @@ import Details from '../products/details';
 import { getAllProducts } from '../../store/actions';
 function Products(props) {
   const [alert, setAlert] = useState(false);
-  const {
-    products,
-    activeCatagory,
-    addToCart,
-    decrementInventory,
-    getAllProducts,
-  } = props;
+  const { products, activeCatagory, addToCart, updateProduct, getAllProducts } =
+    props;
 
   useEffect(() => {
     getAllProducts(1);
@@ -80,7 +71,14 @@ function Products(props) {
                   onClick={() => {
                     if (product.inventory > 0) {
                       addToCart(product);
-                      decrementInventory(product.id);
+                      updateProduct({
+                        name: product.name,
+                        inventory: product.inventory - 1,
+                        id: product.id,
+                        price: product.price,
+                        description: product.description,
+                        image: product.image,
+                      });
                     } else {
                       setAlert(true);
                     }
@@ -127,7 +125,7 @@ const mapDispatchToProps = {
   getProducts,
   getActiveCatagory,
   addToCart,
-  decrementInventory,
+  updateProduct,
   getAllProducts,
 };
 

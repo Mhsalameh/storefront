@@ -10,16 +10,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { removeFromCart } from '../../store/cart';
-import { incrementInventory, returnInventory } from '../../store/products';
+import { updateProduct } from '../../store/actions';
 function Checkout(props) {
-  const {
-    cart,
-    clearCart,
-    removeFromCart,
-    incrementInventory,
-    total,
-    returnInventory,
-  } = props;
+  const { cart, clearCart, removeFromCart, updateProduct, total } = props;
   return (
     <div>
       <Typography variant='h4' gutterBottom>
@@ -51,8 +44,16 @@ function Checkout(props) {
                     variant='contained'
                     color='secondary'
                     onClick={() => {
+                      console.log(item);
                       removeFromCart(item.id);
-                      incrementInventory(item.id);
+                      updateProduct({
+                        name: item.name,
+                        inventory: item.inventory,
+                        id: item.id,
+                        price: item.price,
+                        description: item.description,
+                        image: item.image,
+                      });
                     }}
                   >
                     Remove
@@ -72,7 +73,14 @@ function Checkout(props) {
         onClick={() => {
           cart.forEach((item) => {
             // console.log(item);
-            returnInventory(item);
+            updateProduct({
+              name: item.name,
+              inventory: item.inventory + item.quantity,
+              id: item.id,
+              price: item.price,
+              description: item.description,
+              image: item.image,
+            });
           });
           clearCart();
         }}
@@ -90,7 +98,6 @@ const mapDispatchToProps = {
   getCart,
   clearCart,
   removeFromCart,
-  incrementInventory,
-  returnInventory,
+  updateProduct,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
