@@ -12,6 +12,10 @@ A storefront is a place where people can buy things.
   - a user can view product details
   - a user can can view items in the cart
   - added cart reducer to handle all cart states
+- phase : 3
+  - connected to api
+  - added thunk middleware to handle api calls
+  - created update function to increase/decrease inventory of products
 
 ## [Pull Request](https://github.com/Mhsalameh/storefront/pull/3)
 
