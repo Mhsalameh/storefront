@@ -9,10 +9,15 @@ export default function cart(state = initialState, action) {
       let existingItem = newCart.find((item) => item.id === newItem.id);
       if (existingItem) {
         existingItem.quantity += 1;
+        existingItem.inventory -= 1;
         newTotal += existingItem.price;
         newNumberOfItems += 1;
       } else {
-        existingItem = { ...newItem, quantity: 1 };
+        existingItem = {
+          ...newItem,
+          quantity: 1,
+        };
+        existingItem.inventory -= 1;
         newCart.push(existingItem);
         newTotal += existingItem.price;
         newNumberOfItems += 1;
@@ -30,6 +35,7 @@ export default function cart(state = initialState, action) {
       let existingItem2 = newCart2.find((item) => item.id === action.payload);
       if (existingItem2) {
         existingItem2.quantity -= 1;
+        existingItem2.inventory += 1;
         newTotal2 -= existingItem2.price;
         newNumberOfItems2 -= 1;
         if (existingItem2.quantity === 0) {

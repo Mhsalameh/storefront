@@ -75,12 +75,12 @@ export const getActiveCatagory = (value) => {
 
 //______________________________________________________________________________
 // // product actions
-// export const addProduct = (product) => {
-//   return {
-//     type: 'ADD_PRODUCT',
-//     payload: product,
-//   };
-// };
+export const addProduct = (product) => {
+  return {
+    type: 'ADD_PRODUCT',
+    payload: product,
+  };
+};
 // export const deleteProduct = (id) => {
 //   return {
 //     type: 'DELETE_PRODUCT',
@@ -93,25 +93,25 @@ export const getProducts = (value) => {
     payload: value,
   };
 };
-// export const decrementInventory = (id) => {
-//   return {
-//     type: 'DECREMENT_INVENTORY',
-//     payload: id,
-//   };
-// };
+export const decrementInventory = (id) => {
+  return {
+    type: 'DECREMENT_INVENTORY',
+    payload: id,
+  };
+};
 
-// export const incrementInventory = (id) => {
-//   return {
-//     type: 'INCREMENT_INVENTORY',
-//     payload: id,
-//   };
-// };
-// export const returnInventory = (item) => {
-//   return {
-//     type: 'RETURN_INVENTORY',
-//     payload: item,
-//   };
-// };
+export const incrementInventory = (id) => {
+  return {
+    type: 'INCREMENT_INVENTORY',
+    payload: id,
+  };
+};
+export const returnInventory = (item) => {
+  return {
+    type: 'RETURN_INVENTORY',
+    payload: item,
+  };
+};
 
 //api actions
 export const getCatagories = (value) => (dispatch, state) => {
@@ -123,14 +123,17 @@ export const getCatagories = (value) => (dispatch, state) => {
 
 export const getAllProducts = (value) => (dispatch, state) => {
   return superagent.get(`${api}/products`).then((res) => {
-    // console.log(res.body);
     dispatch(getProducts(res.body));
     dispatch(getActiveCatagory(value));
   });
 };
 
-// export const addProductToCart = (product) => (dispatch, state) => {
-//   return superagent.post(`${api}/cart`, { product }).then((res) => {
-//     dispatch(addToCart(res.body));
-//   });
-// };
+export const updateProduct = (product) => (dispatch, state) => {
+  return superagent
+    .put(`${api}/products/${product.id}`)
+    .send(product)
+    .then((res) => {
+      console.log(res.body);
+      dispatch(getProducts(res.body));
+    });
+};
