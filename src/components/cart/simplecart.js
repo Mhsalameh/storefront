@@ -15,7 +15,7 @@ function SimpleCart(props) {
   const { cart, removeFromCart, incrementInventory } = props;
   useEffect(() => {
     getCart();
-    console.log(cart);
+    // console.log(cart);
   }, [cart]);
 
   return (

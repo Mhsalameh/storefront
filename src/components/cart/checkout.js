@@ -71,7 +71,7 @@ function Checkout(props) {
         color='primary'
         onClick={() => {
           cart.forEach((item) => {
-            console.log(item);
+            // console.log(item);
             returnInventory(item);
           });
           clearCart();
