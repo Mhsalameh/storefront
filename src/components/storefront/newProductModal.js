@@ -68,7 +68,7 @@ const ProductModal = (props) => {
           <Button
             onClick={(e) => {
               addProduct({
-                catId: activeCatagory,
+                catagoryId: activeCatagory,
                 name,
                 description,
                 price,

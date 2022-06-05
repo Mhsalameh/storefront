@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 function Details(props) {
@@ -16,8 +17,8 @@ function Details(props) {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: '80%',
+    width: '50%',
+    height: '50%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -33,34 +34,42 @@ function Details(props) {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Card sx={style}>
-          <CardMedia
-            image={item.image}
-            title={item.name}
-            style={{ height: '500px' }}
-          />
-          <CardContent style={{ height: '100%' }}>
-            <Typography gutterBottom variant='h2' component='h2'>
-              {item.name}
-            </Typography>
-            <Typography variant='h5' color='textSecondary' component='p'>
-              {item.description}
-            </Typography>
-            <Typography variant='h5' color='textSecondary' component='p'>
-              price: ${item.price}
-            </Typography>
-            <br />
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={() => {
-                handleClose();
+        <Box sx={style}>
+          <Card
+            sx={{
+              style,
+            }}
+          >
+            <CardMedia
+              sx={{
+                height: '100%',
               }}
-            >
-              close
-            </Button>
-          </CardContent>
-        </Card>
+              image={item.image}
+              title={item.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant='h2' component='h2'>
+                {item.name}
+              </Typography>
+              <Typography variant='h5' color='textSecondary' component='p'>
+                {item.description}
+              </Typography>
+              <Typography variant='h5' color='textSecondary' component='p'>
+                price: ${item.price}
+              </Typography>
+              <br />
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={() => {
+                  handleClose();
+                }}
+              >
+                close
+              </Button>
+            </CardContent>
+          </Card>
+        </Box>
       </Modal>
     </div>
   );

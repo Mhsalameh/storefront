@@ -1,16 +1,13 @@
 import { connect } from 'react-redux';
-import { getCatagory, getActiveCatagory } from '../../store/catagories';
+import { getActiveCatagory } from '../../store/catagories';
 import { useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 import SimpleCart from '../cart/simplecart';
 
 // import ProductModal from './newProductModal';
 function CurrentCatagory(props) {
-  const { catagory, getActiveCatagory, getCatagory, value, cart } = props;
+  const { catagory, getActiveCatagory, value, cart } = props;
 
-  useEffect(() => {
-    getCatagory();
-  }, [catagory, getCatagory]);
   useEffect(() => {
     getActiveCatagory(value);
   }, [getActiveCatagory, value]);
@@ -41,7 +38,6 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 const mapDispatchToProps = {
-  getCatagory,
   getActiveCatagory,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentCatagory);

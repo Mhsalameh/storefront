@@ -1,23 +1,20 @@
 import { Box, Tabs, Tab } from '@mui/material';
 import { useState, useEffect } from 'react';
 import CurrentCatagory from './current-catagory';
-import {
-  addCatagory,
-  getCatagory,
-  getActiveCatagory,
-} from '../../store/catagories';
+import { addCatagory, getActiveCatagory } from '../../store/catagories';
+import { getCatagories } from '../../store/actions';
 import { connect } from 'react-redux';
 import { When } from 'react-if';
 const Catagories = (props) => {
   const [value, setValue] = useState(0);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const { catagory, addCatagory, getCatagory, getActiveCatagory } = props;
+  const { catagory, addCatagory, getCatagories, getActiveCatagory } = props;
   useEffect(() => {
-    getCatagory();
-  }, [catagory, getCatagory]);
+    getCatagories(1);
+  }, [getCatagories]);
   useEffect(() => {
-    getActiveCatagory(value);
+    getActiveCatagory(value + 1);
   }, [value, getActiveCatagory]);
 
   function handleChange(event, newValue) {
@@ -79,6 +76,6 @@ const Catagories = (props) => {
 const mapStateToProps = (state) => ({
   catagory: state.catagory,
 });
-const mapDispatchToProps = { addCatagory, getCatagory, getActiveCatagory };
+const mapDispatchToProps = { addCatagory, getCatagories, getActiveCatagory };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Catagories);

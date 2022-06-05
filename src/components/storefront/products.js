@@ -17,24 +17,25 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 import Details from '../products/details';
+import { getAllProducts } from '../../store/actions';
 function Products(props) {
   const [alert, setAlert] = useState(false);
   const {
     products,
-    getProducts,
     activeCatagory,
     addToCart,
     decrementInventory,
+    getAllProducts,
   } = props;
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts, products]);
+    getAllProducts(1);
+  }, [getAllProducts]);
 
   return (
     <div id='productCard'>
       {products.products.map((product, i) => {
-        if (activeCatagory?.id === product.catId) {
+        if (activeCatagory?.id === product.catagoryId) {
           return (
             <Card
               key={i}
@@ -127,6 +128,7 @@ const mapDispatchToProps = {
   getActiveCatagory,
   addToCart,
   decrementInventory,
+  getAllProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

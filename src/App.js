@@ -10,16 +10,14 @@ import { When } from 'react-if';
 import { getCart } from './store/cart';
 import Checkout from './components/cart/checkout';
 function App(props) {
-  const { catagory, products, cart } = props;
+  const { catagory, cart } = props;
 
   return (
     <div className='container'>
       <Header />
       <When condition={!cart.isCartOpen}>
         <Catagories />
-        <When condition={catagory.activeCatagory && products?.products[0]}>
-          <Products activeCatagory={catagory.activeCatagory} />
-        </When>
+        <Products activeCatagory={catagory.activeCatagory} />
       </When>
       <When condition={cart.isCartOpen}>
         <Checkout />

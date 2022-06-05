@@ -1,24 +1,5 @@
 let initialState = {
-  catagories: [
-    {
-      id: 0,
-      name: 'Food',
-      description: 'only apples',
-      subCatagories: [],
-    },
-    {
-      id: 1,
-      name: 'Clothing',
-      description: 'shop for Eid',
-      subCatagories: [],
-    },
-    {
-      id: 2,
-      name: 'Electronics',
-      description: 'old tvs',
-      subCatagories: [],
-    },
-  ],
+  catagories: [],
 };
 
 export default function catagory(state = initialState, action) {
@@ -29,8 +10,13 @@ export default function catagory(state = initialState, action) {
       );
       return catagory;
     case 'GET_CATAGORY':
-      localStorage.setItem('catagories', JSON.stringify(state));
-      return state;
+      // localStorage.setItem('catagories', JSON.stringify(state));
+      // console.log(action.payload);
+      return {
+        ...state,
+        catagories: action.payload,
+        activeCatagory: action.payload[0],
+      };
     case 'ADD_CATAGORY':
       let newCatagory = {
         id: state.catagories.length,
@@ -46,23 +32,15 @@ export default function catagory(state = initialState, action) {
       });
       return { ...state, catagories: newCatagories };
 
-    case 'ADD_SUB_CATAGORY':
-      let newSubCatagory = action.payload;
-      state.catagories.forEach((catagory) => {
-        if (catagory.id === newSubCatagory.catagoryId) {
-          catagory.subCatagories.push(newSubCatagory);
-        }
-      });
-      return { ...state };
-
     case 'GET_ACTIVE_CATAGORY':
       let activeCatagory = state.catagories.find(
         (catagory) => catagory.id === action.payload
       );
+      // console.log(activeCatagory);
       return { ...state, activeCatagory };
 
     default:
-      return state;
+      return { ...state, products: action.payload };
   }
 }
 
