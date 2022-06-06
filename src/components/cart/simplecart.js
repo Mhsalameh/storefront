@@ -30,7 +30,7 @@ function SimpleCart(props) {
                   <RemoveShoppingCartIcon
                     onClick={() => {
                       removeFromCart(item.id);
-                      updateProduct('increment', item);
+                      updateProduct('rm', item);
                     }}
                   />
                 </ListItemButton>
