@@ -20,7 +20,7 @@ function Products(props) {
     props;
 
   useEffect(() => {
-    getAllProducts(1);
+    getAllProducts();
   }, [getAllProducts]);
 
   return (
@@ -29,11 +29,12 @@ function Products(props) {
         if (activeCatagory?.id === product.catagoryId) {
           return (
             <Card
-              key={i}
+              key={product.id}
               sx={{
                 maxWidth: '30%',
                 minWidth: '20%',
                 display: 'flex',
+                height: '50%',
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginBottom: '2rem',
@@ -71,14 +72,7 @@ function Products(props) {
                   onClick={() => {
                     if (product.inventory > 0) {
                       addToCart(product);
-                      updateProduct({
-                        name: product.name,
-                        inventory: product.inventory - 1,
-                        id: product.id,
-                        price: product.price,
-                        description: product.description,
-                        image: product.image,
-                      });
+                      updateProduct('decrement', product);
                     } else {
                       setAlert(true);
                     }
@@ -87,6 +81,15 @@ function Products(props) {
                   <AddShoppingCartIcon /> Add to cart
                 </Button>
                 <Details item={product} />
+                <div className='hide'>
+                  <button
+                    onClick={() => {
+                      updateProduct('increment', product);
+                    }}
+                  >
+                    increment inventory
+                  </button>
+                </div>
               </CardActions>
               {alert && product.inventory < 1 && (
                 <Alert

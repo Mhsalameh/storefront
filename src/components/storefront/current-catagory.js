@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 import SimpleCart from '../cart/simplecart';
 
-// import ProductModal from './newProductModal';
 function CurrentCatagory(props) {
   const { catagory, getActiveCatagory, value, cart } = props;
 
@@ -13,7 +12,6 @@ function CurrentCatagory(props) {
   }, [getActiveCatagory, value]);
   return (
     <>
-      {/* <ProductModal activeCatagory={catagory.activeCatagory?.id} /> */}
       {cart.items.length ? <SimpleCart /> : null}
 
       <Box

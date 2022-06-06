@@ -1,5 +1,8 @@
 let initialState = { items: [], total: 0, numberOfItems: 0, isCartOpen: false };
-export default function cart(state = initialState, action) {
+export default function cart(
+  state = JSON.parse(localStorage.getItem('cart')) || initialState,
+  action
+) {
   switch (action.type) {
     case 'ADD_TO_CART':
       let newItem = action.payload;
@@ -22,6 +25,15 @@ export default function cart(state = initialState, action) {
         newTotal += existingItem.price;
         newNumberOfItems += 1;
       }
+      localStorage.setItem(
+        'cart',
+        JSON.stringify({
+          ...state,
+          items: newCart,
+          total: newTotal,
+          numberOfItems: newNumberOfItems,
+        })
+      );
       return {
         ...state,
         items: newCart,
@@ -42,6 +54,15 @@ export default function cart(state = initialState, action) {
           newCart2 = newCart2.filter((item) => item.id !== action.payload);
         }
       }
+      localStorage.setItem(
+        'cart',
+        JSON.stringify({
+          ...state,
+          items: newCart2,
+          total: newTotal2,
+          numberOfItems: newNumberOfItems2,
+        })
+      );
       return {
         ...state,
         items: newCart2,
@@ -52,6 +73,7 @@ export default function cart(state = initialState, action) {
       return state;
 
     case 'CLEAR_CART':
+      localStorage.setItem('cart', JSON.stringify(initialState));
       return {
         ...state,
         items: [],

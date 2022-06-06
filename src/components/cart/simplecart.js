@@ -10,12 +10,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import { incrementInventory } from '../../store/products';
+import { updateProduct } from '../../store/actions';
 function SimpleCart(props) {
-  const { cart, removeFromCart, incrementInventory } = props;
+  const { cart, removeFromCart, updateProduct } = props;
   useEffect(() => {
     getCart();
-    // console.log(cart);
   }, [cart]);
 
   return (
@@ -31,7 +30,7 @@ function SimpleCart(props) {
                   <RemoveShoppingCartIcon
                     onClick={() => {
                       removeFromCart(item.id);
-                      incrementInventory(item.id);
+                      updateProduct('increment', item);
                     }}
                   />
                 </ListItemButton>
@@ -50,5 +49,5 @@ const mapStateToProps = (state) => {
     cart: state.cart.items,
   };
 };
-const mapDispatchToProps = { removeFromCart, getCart, incrementInventory };
+const mapDispatchToProps = { removeFromCart, getCart, updateProduct };
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleCart);
