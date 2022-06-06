@@ -45,7 +45,7 @@ function Checkout(props) {
                     color='secondary'
                     onClick={() => {
                       removeFromCart(item.id);
-                      updateProduct('increment', item);
+                      updateProduct('rm', item);
                     }}
                   >
                     Remove
