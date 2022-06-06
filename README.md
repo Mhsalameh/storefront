@@ -17,7 +17,7 @@ A storefront is a place where people can buy things.
   - added thunk middleware to handle api calls
   - created update function to increase/decrease inventory of products
 
-## [Pull Request](https://github.com/Mhsalameh/storefront/pull/3)
+## [Pull Request](https://github.com/Mhsalameh/storefront/pull/9)
 
 ## [Live URL](https://not-a-real-store.netlify.app/)
 
