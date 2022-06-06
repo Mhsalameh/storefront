@@ -116,24 +116,39 @@ export const returnInventory = (item) => {
 //api actions
 export const getCatagories = (value) => (dispatch, state) => {
   return superagent.get(`${api}/catagories`).then((res) => {
-    // console.log(res.body);
     dispatch(getCatagory(res.body));
+    if (value) {
+      dispatch(getActiveCatagory(value));
+    }
   });
 };
 
-export const getAllProducts = (value) => (dispatch, state) => {
+export const getAllProducts = () => (dispatch, state) => {
   return superagent.get(`${api}/products`).then((res) => {
     dispatch(getProducts(res.body));
-    dispatch(getActiveCatagory(value));
   });
 };
 
-export const updateProduct = (product) => (dispatch, state) => {
+export const updateProduct = (action, product) => (dispatch, state) => {
+  state();
+  switch (action) {
+    case 'decrement':
+      product.inventory = product.inventory - 1;
+      break;
+    case 'increment':
+      product.inventory = product.inventory + 1;
+      break;
+    case 'return':
+      product.inventory = product.inventory + product.quantity;
+      break;
+    default:
+      break;
+  }
+
   return superagent
     .put(`${api}/products/${product.id}`)
-    .send(product)
+    .send({ inventory: product.inventory })
     .then((res) => {
-      console.log(res.body);
       dispatch(getProducts(res.body));
     });
 };

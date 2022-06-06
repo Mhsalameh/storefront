@@ -41,13 +41,11 @@ const initialState = {
 export default function products(state = initialState, action) {
   switch (action.type) {
     case 'GET_PRODUCTS':
-      // localStorage.setItem('products', JSON.stringify(state));
-      // console.log(action.payload);
+      action.payload.sort((a, b) => {
+        return a.id - b.id;
+      });
       return { ...state, products: action.payload };
     case 'ADD_PRODUCT':
-      // console.log(action.payload);
-      // if (state.products[0])
-      // localStorage.setItem('products', JSON.stringify(state));
       return {
         ...state,
         products: [...state.products, action.payload],

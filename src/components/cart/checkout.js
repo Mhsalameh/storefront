@@ -44,16 +44,8 @@ function Checkout(props) {
                     variant='contained'
                     color='secondary'
                     onClick={() => {
-                      console.log(item);
                       removeFromCart(item.id);
-                      updateProduct({
-                        name: item.name,
-                        inventory: item.inventory,
-                        id: item.id,
-                        price: item.price,
-                        description: item.description,
-                        image: item.image,
-                      });
+                      updateProduct('increment', item);
                     }}
                   >
                     Remove
@@ -72,15 +64,7 @@ function Checkout(props) {
         color='primary'
         onClick={() => {
           cart.forEach((item) => {
-            // console.log(item);
-            updateProduct({
-              name: item.name,
-              inventory: item.inventory + item.quantity,
-              id: item.id,
-              price: item.price,
-              description: item.description,
-              image: item.image,
-            });
+            updateProduct('return', item);
           });
           clearCart();
         }}

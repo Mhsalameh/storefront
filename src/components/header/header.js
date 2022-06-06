@@ -16,7 +16,6 @@ function Header(props) {
             cart.isCartOpen ? closeCart() : openCart();
           }}
         >
-          {/* {console.log(cart.isCartOpen)} */}
           <ShoppingCartIcon />
           {cart.numberOfItems} {cart.isCartOpen ? 'Close' : 'Open'}
         </Button>

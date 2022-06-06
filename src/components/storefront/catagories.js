@@ -4,21 +4,27 @@ import CurrentCatagory from './current-catagory';
 import { addCatagory, getActiveCatagory } from '../../store/catagories';
 import { getCatagories } from '../../store/actions';
 import { connect } from 'react-redux';
-import { When } from 'react-if';
+// import { When } from 'react-if';
 const Catagories = (props) => {
-  const [value, setValue] = useState(0);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const { catagory, addCatagory, getCatagories, getActiveCatagory } = props;
+  const [value, setValue] = useState(
+    JSON.parse(localStorage.getItem('currentTap')) || 0
+  );
+  // const [name, setName] = useState('');
+  // const [description, ] = useState('');
+  const { catagory, getActiveCatagory, getCatagories } = props;
+
   useEffect(() => {
-    getCatagories(1);
+    let activeCatagory = JSON.parse(localStorage.getItem('activeCatagory'));
+    if (!activeCatagory) {
+      getCatagories(1);
+    }
+    getCatagories();
   }, [getCatagories]);
-  useEffect(() => {
-    getActiveCatagory(value + 1);
-  }, [value, getActiveCatagory]);
 
   function handleChange(event, newValue) {
     setValue(newValue);
+    localStorage.setItem('currentTap', JSON.stringify(newValue));
+    getActiveCatagory(newValue + 1);
   }
 
   return (
@@ -32,10 +38,10 @@ const Catagories = (props) => {
           {catagory.catagories.map((cat, i) => (
             <Tab key={i + catagory.catagories.length} label={cat.name} />
           ))}
-          <Tab label='Add Catagory' />
+          {/* <Tab label='Add Catagory' /> */}
         </Tabs>
       </Box>
-      <When condition={value === catagory.catagories.length}>
+      {/* <When condition={value === catagory.catagories.length}>
         <Box>
           <input
             type='text'
@@ -65,10 +71,10 @@ const Catagories = (props) => {
             Add Catagory
           </button>
         </Box>
-      </When>
-      <When condition={value !== catagory.catagories.length}>
-        <CurrentCatagory />
-      </When>
+      </When> */}
+      {/* <When condition={value !== catagory.catagories.length}> */}
+      <CurrentCatagory />
+      {/* </When> */}
     </div>
   );
 };

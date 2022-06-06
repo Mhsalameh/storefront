@@ -2,20 +2,22 @@ let initialState = {
   catagories: [],
 };
 
-export default function catagory(state = initialState, action) {
+export default function catagory(
+  state = {
+    ...initialState,
+    activeCatagory: JSON.parse(localStorage.getItem('activeCatagory')) || '',
+  },
+  action
+) {
   switch (action.type) {
-    case 'SELECT_CATAGORY':
-      let catagory = state.catagories.find(
-        (catagory) => catagory.id === action.payload
-      );
-      return catagory;
     case 'GET_CATAGORY':
       // localStorage.setItem('catagories', JSON.stringify(state));
-      // console.log(action.payload);
+      // (action.payload);
       return {
         ...state,
         catagories: action.payload,
-        activeCatagory: action.payload[0],
+        activeCatagory:
+          JSON.parse(localStorage.getItem('activeCatagory')) || '',
       };
     case 'ADD_CATAGORY':
       let newCatagory = {
@@ -36,20 +38,14 @@ export default function catagory(state = initialState, action) {
       let activeCatagory = state.catagories.find(
         (catagory) => catagory.id === action.payload
       );
-      // console.log(activeCatagory);
+      if (activeCatagory)
+        localStorage.setItem('activeCatagory', JSON.stringify(activeCatagory));
       return { ...state, activeCatagory };
 
     default:
       return { ...state, products: action.payload };
   }
 }
-
-export const selectCatagories = (value) => {
-  return {
-    type: 'SELECT_CATAGORY',
-    payload: value,
-  };
-};
 
 export const getCatagory = (value) => {
   return {
