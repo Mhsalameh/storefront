@@ -12,8 +12,8 @@ import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
-import Details from '../products/details';
 import { getAllProducts } from '../../store/actions';
+import { Link } from 'react-router-dom';
 function Products(props) {
   const [alert, setAlert] = useState(false);
   const { products, activeCatagory, addToCart, updateProduct, getAllProducts } =
@@ -31,7 +31,7 @@ function Products(props) {
             <Card
               key={product.id}
               sx={{
-                maxWidth: '30%',
+                maxWidth: '40%',
                 minWidth: '20%',
                 display: 'flex',
                 height: '50%',
@@ -67,8 +67,17 @@ function Products(props) {
                     : 'Out of Stock'}
                 </Typography>
               </CardContent>
-              <CardActions>
+              <CardActions
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}
+              >
                 <Button
+                  title='add to cart'
+                  variant='contained'
+                  size='small'
                   onClick={() => {
                     if (product.inventory > 0) {
                       addToCart(product);
@@ -78,9 +87,18 @@ function Products(props) {
                     }
                   }}
                 >
-                  <AddShoppingCartIcon /> Add to cart
+                  <AddShoppingCartIcon />
                 </Button>
-                <Details item={product} />
+                <Link to={`/product/${product.id}`}>
+                  <Button
+                    title='view price and more'
+                    variant='contained'
+                    align='center'
+                    size='small'
+                  >
+                    <Typography variant='subtitle'>More Details</Typography>
+                  </Button>
+                </Link>
                 <div className='hide'>
                   <button
                     onClick={() => {

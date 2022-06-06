@@ -3,22 +3,27 @@ import { connect } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from '@mui/material';
 import { openCart, closeCart } from '../../store/cart';
+import { Link } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 function Header(props) {
-  const { cart, openCart, closeCart } = props;
+  const { cart } = props;
   return (
     <header>
       <Typography align='left' variant='h4'>
         Not A Real Store
       </Typography>
       <Typography position='absolute' top='0' right='0' variant='subtitle1'>
-        <Button
-          onClick={() => {
-            cart.isCartOpen ? closeCart() : openCart();
-          }}
-        >
-          <ShoppingCartIcon />
-          {cart.numberOfItems} {cart.isCartOpen ? 'Close' : 'Open'}
-        </Button>
+        <Link to='/'>
+          <Button variant='filled'>
+            <HomeIcon />
+          </Button>
+        </Link>
+        <Link className='links' to='/cart'>
+          <Button variant='filled'>
+            <ShoppingCartIcon />
+            {cart.numberOfItems}
+          </Button>
+        </Link>
       </Typography>
     </header>
   );
