@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { addToCart } from '../../store/cart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useParams } from 'react-router-dom';
-import { getAllProducts, updateProduct } from '../../store/actions';
+import { getAllProducts, updateProduct } from '../../store/products';
 import SimpleCart from '../cart/simplecart';
 function Details(props) {
   const { products, getAllProducts, addToCart, updateProduct, cart } = props;

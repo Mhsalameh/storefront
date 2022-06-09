@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addProduct, getProducts } from '../../store/products';
+import { addProduct } from '../../store/products';
 
 const style = {
   position: 'absolute',
@@ -89,6 +89,6 @@ const mapStateToProps = (state) => ({
   products: state.products,
 });
 
-const mapDispatchToProps = { addProduct, getProducts };
+const mapDispatchToProps = { addProduct };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductModal);

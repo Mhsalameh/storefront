@@ -16,6 +16,11 @@ A storefront is a place where people can buy things.
   - connected to api
   - added thunk middleware to handle api calls
   - created update function to increase/decrease inventory of products
+- phase : 4
+  - added checkout page with form to enter shipping info
+  - refactored reducers using redux toolkit
+  - created details page to show product details
+  - refactored routes to use react-router-dom
 
 ## [Pull Request](https://github.com/Mhsalameh/storefront/pull/10)
 

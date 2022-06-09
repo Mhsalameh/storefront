@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 import { getActiveCatagory } from '../../store/catagories';
-import { useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 import SimpleCart from '../cart/simplecart';
 
 function CurrentCatagory(props) {
-  const { catagory, getActiveCatagory, value, cart } = props;
+  const { catagory, cart } = props;
 
-  useEffect(() => {
-    getActiveCatagory(value);
-  }, [getActiveCatagory, value]);
   return (
     <>
       {cart.items.length ? <SimpleCart /> : null}

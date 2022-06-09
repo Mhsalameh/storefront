@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
 }
+html,
 body {
   background-color: #fafafa;
   min-height: 100vh;
@@ -33,6 +34,27 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-around;
+    .productCard {
+      &:hover {
+        .productCard__image {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .checkout-form {
+    align-items: center;
+    padding: 50px 0;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    .input-text {
+      width: 100%;
+    }
   }
   header {
     width: 100%;
@@ -52,4 +74,7 @@ body {
       margin: 0;
     }
   }
+}
+.container {
+  height: 100%;
 }

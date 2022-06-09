@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { addProduct, getProducts, updateProduct } from '../../store/actions';
+import { updateProduct } from '../../store/products';
 import { getActiveCatagory } from '../../store/catagories';
 import { addToCart } from '../../store/cart';
 import Card from '@mui/material/Card';
@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
-import { getAllProducts } from '../../store/actions';
+import { getAllProducts } from '../../store/products';
 import { Link } from 'react-router-dom';
 function Products(props) {
   const [alert, setAlert] = useState(false);
@@ -38,12 +38,21 @@ function Products(props) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 marginBottom: '2rem',
+                borderRadius: '1rem',
               }}
+              className='productCard'
             >
               <CardMedia
                 component='img'
                 image={product.image}
                 alt={product.name}
+                sx={{
+                  objectFit: 'cover',
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: '20px 20px 0 0',
+                }}
+                className='productCard__image'
               />
               <CardContent>
                 <Typography
@@ -142,8 +151,6 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 const mapDispatchToProps = {
-  addProduct,
-  getProducts,
   getActiveCatagory,
   addToCart,
   updateProduct,

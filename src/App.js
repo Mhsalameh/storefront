@@ -2,9 +2,9 @@ import './App.scss';
 // import { Button } from '@mui/material';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
-import { getCatagories, getAllProducts } from './store/actions';
+import { getCatagories } from './store/catagories';
+import { getAllProducts } from '././store/products';
 import { connect } from 'react-redux';
-import { getCart } from './store/cart';
 import Checkout from './components/cart/checkout';
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -39,5 +39,5 @@ const mapStateToProps = (state) => ({
   products: state.products,
   cart: state.cart,
 });
-const mapDispatchToProps = { getCatagories, getCart, getAllProducts };
+const mapDispatchToProps = { getCatagories, getAllProducts };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
