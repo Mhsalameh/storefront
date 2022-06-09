@@ -1,13 +1,11 @@
 import Catagories from './catagories';
 import Products from './products';
-import { getCatagories } from '../../store/actions';
 import { connect } from 'react-redux';
-import { When } from 'react-if';
 
 function StoreFront(props) {
-  const { catagory, cart } = props;
+  const { catagory } = props;
   return (
-    <When condition={!cart.isCartOpen}>
+    <>
       <Catagories />
       <Products
         activeCatagory={
@@ -15,13 +13,11 @@ function StoreFront(props) {
           catagory.activeCatagory
         }
       />
-    </When>
+    </>
   );
 }
 let mapStateToProps = (state) => ({
   catagory: state.catagory,
   products: state.products,
-  cart: state.cart,
 });
-let mapDispatchToProps = { getCatagories };
-export default connect(mapStateToProps, mapDispatchToProps)(StoreFront);
+export default connect(mapStateToProps)(StoreFront);

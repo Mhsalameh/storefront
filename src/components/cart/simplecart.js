@@ -10,7 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import { updateProduct } from '../../store/actions';
+import { updateProduct } from '../../store/products';
 function SimpleCart(props) {
   const { cart, removeFromCart, updateProduct } = props;
   useEffect(() => {
@@ -30,7 +30,7 @@ function SimpleCart(props) {
                   <RemoveShoppingCartIcon
                     onClick={() => {
                       removeFromCart(item.id);
-                      updateProduct('rm', item);
+                      updateProduct('increment', item);
                     }}
                   />
                 </ListItemButton>

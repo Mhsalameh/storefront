@@ -2,7 +2,6 @@ import { Typography } from '@mui/material';
 import { connect } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from '@mui/material';
-import { openCart, closeCart } from '../../store/cart';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 function Header(props) {
@@ -31,8 +30,5 @@ function Header(props) {
 const mapStateToProps = (state) => ({
   cart: state.cart,
 });
-const mapDispatchToProps = {
-  openCart,
-  closeCart,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default connect(mapStateToProps)(Header);
